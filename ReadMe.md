@@ -1,6 +1,9 @@
 # Infinite Scrolling Application (practice constant fetching)
 
 ## Project Overview
+This little application is going to be combined with my AudioPlayer in order to make a little feature blog that plays music. However, in the mean time this is meant to showcase making "infinite" API calls and scrolling continously. 
+
+Infinite Effort leverages the jsonplaceholder.typicode.com API. Basics of the API is it allows virtually ulimited calls to get randomly generated, organized JSON data that can be used to build previews and test features. Perfect for this application. Look on the above website for documentation. 
 
 ### Features
 

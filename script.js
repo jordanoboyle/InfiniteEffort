@@ -6,6 +6,8 @@ const filter = document.getElementById('filter');
 let limit = 4;
 let page = 1;
 
+
+//Fetch the Posts from API jsonplaceholder.typicode.com
 async function getPosts() {
   const response = await fetch( 
     `https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`
@@ -17,3 +19,42 @@ async function getPosts() {
 
   return data;
 }
+
+//Show Posts in the DOM
+
+async function showPosts() {
+  const posts = await getPosts();  
+  //Again...this is important in VJS. You must make sure to await the promise. 
+  //Not as necessary in Vue.js or React.js, but it is pivotal in Vanilla
+
+  // console.log(posts);
+
+  posts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.classList.add('post');
+    postElement.innerHTML = `
+      <div class="number">${post.id}</div>
+      <div class="post-info">
+        <h2 class="post-title">${post.title}</h2>
+        <p class="post-body">${post.body}</p>
+      </div>
+    `;
+    postContainer.appendChild(postElement);
+  });
+}
+
+
+//Show initial posts
+showPosts();
+
+//Event Listeners
+window.addEventListener('scroll', () => {
+  // console.log(document.documentElement.scrollHeight);
+  // console.log(document.documentElement.scrollTop);
+
+  const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+    showLoading();
+  }
+})
