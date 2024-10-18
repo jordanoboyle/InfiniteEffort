@@ -103,8 +103,8 @@ h1 {
   transition: opacity 0.3s ease-in;
 }
 
-.loader .show {
-  opacity: 1;
+.loader.show {
+  opacity: 0.85;
 }
 
 .circle {
