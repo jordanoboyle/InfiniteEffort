@@ -3,7 +3,7 @@ const postContainer = document.getElementById('posts-container');
 const loading  = document.querySelector('.loader');
 const filter = document.getElementById('filter');
 
-let limit = 4;
+let limit = 6;
 let page = 1;
 
 
@@ -43,9 +43,41 @@ async function showPosts() {
   });
 }
 
+//Show Loading and fetch more posts
+function showLoading() {
+  loading.classList.add('show');
+
+  setTimeout(() => {
+    loading.classList.remove('show');
+
+    setTimeout(() => {
+      page++;
+      showPosts();
+    }, 300);
+  }, 1000);
+}
+
+//Filter Posts by inputs
+//
+function filterPostsByInput(e) {
+  const term = e.target.value.toUpperCase();
+  const posts = document.querySelectorAll('.post');
+
+  posts.forEach(post => {
+    const title = post.querySelector('.post-title').innerText.toUpperCase();
+    const body  = post.querySelector('.post-body').innerText.toUpperCase();
+
+    if (title.indexOf(term) > -1 || body.indexOf(term) > -1) {
+      post.style.display = 'flex';
+    } else {
+      post.style.display = 'none';
+    }
+  });
+}
 
 //Show initial posts
 showPosts();
+
 
 //Event Listeners
 window.addEventListener('scroll', () => {
@@ -57,4 +89,6 @@ window.addEventListener('scroll', () => {
   if (scrollTop + clientHeight >= scrollHeight - 5) {
     showLoading();
   }
-})
+});
+
+filter.addEventListener('input', filterPostsByInput);
